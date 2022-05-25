@@ -19,6 +19,8 @@ public class User {
 
     private String lastname;
 
+    private String age;
+
     private String email;
 
 
