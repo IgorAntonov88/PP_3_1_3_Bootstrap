@@ -19,24 +19,21 @@
     <th>Возраст</th>
     <th>E-mail</th>
     <th>Роль</th>
-<!--    <th>Действие</th>-->
   </tr>
+
   <tr th:each="user : ${username}">
     <td th:text="${user.getId()}"></td>
     <td th:text="${user.username}"></td>
     <td th:text="${user.lastname}"></td>
     <td th:text="${user.age}"></td>
     <td th:text="${user.email}"></td>
-    <td th:text="${user.getRoles()}"></td>
-<!--    <td>-->
-<!--      <a th:href="@{/{id}/edit (id=${user.getId()})}">Edit</a>-->
-<!--      <a th:href="@{/{id}/delete(id=${user.getId()})}">Delete</a>-->
-<!--    </td>-->
+    <td th:each="role : ${user.roles}" th:text="${role.name}"></td>
   </tr>
+
 </table>
 <p></p>
 <form th:action="@{/logout}" method="post">
-  <input type="submit" value="Log out"/>
+  <input type="submit" value="Выйти"/>
 </form>
 <p></p>
 <!--<a th:href="@{/new}">Добавить нового пользователя</a>-->
