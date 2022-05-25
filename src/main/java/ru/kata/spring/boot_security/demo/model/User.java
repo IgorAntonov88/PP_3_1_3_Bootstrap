@@ -3,24 +3,28 @@ package ru.kata.spring.boot_security.demo.model;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.Collection;
 
-@Data
 @Entity
-@Table(name="users")
+@Data
+@Table(name = "users")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name="name")
-    private String name;
+    private String username;
 
-    @Column(name="surname")
-    private String surname;
+    private String password;
 
-    @Column(name="age")
-    private byte age;
+    private String lastname;
 
-    @Column(name="email")
     private String email;
+
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "users_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Collection<Role> roles;
 }
