@@ -22,7 +22,6 @@ import java.util.stream.Collectors;
 @Service
 public class UserService implements UserDetailsService{
 
-
     @Autowired
     final UserRepository userRepository;
 
@@ -40,7 +39,6 @@ public class UserService implements UserDetailsService{
     }
 
     public User saveUser (User user) {
-        //  user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
     }
 

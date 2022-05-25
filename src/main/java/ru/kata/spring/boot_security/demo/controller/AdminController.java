@@ -1,5 +1,6 @@
 package ru.kata.spring.boot_security.demo.controller;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -22,15 +23,12 @@ import java.util.List;
 import java.util.Set;
 
 @Controller
+@RequiredArgsConstructor
 public class AdminController {
 
+    private final UserService userService;
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
-    }
-    final UserService userService;
-
-    public AdminController(UserService userService) {
-        this.userService = userService;
     }
 
     @GetMapping("/admin")

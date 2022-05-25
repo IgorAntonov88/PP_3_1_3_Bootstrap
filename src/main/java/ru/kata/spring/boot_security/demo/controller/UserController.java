@@ -2,6 +2,7 @@ package ru.kata.spring.boot_security.demo.controller;
 
 
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,18 +14,15 @@ import java.security.Principal;
 import java.util.List;
 
 @Controller
+@RequiredArgsConstructor
+@RequestMapping("/user")
 public class UserController {
+    private final UserService userService;
 
-    final UserService userService;
-
-    public UserController(UserService userService) {
-        this.userService = userService;
-    }
-
-    @GetMapping("/user")
-    public String infoUser(Model model, Principal principal){
+    @GetMapping()
+    public String userPage(Principal principal, Model model) {
         User user = userService.findByUsername(principal.getName());
-        model.addAttribute("username",user);
+        model.addAttribute("user",user);
         return "user";
     }
 }
