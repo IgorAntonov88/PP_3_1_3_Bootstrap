@@ -36,10 +36,10 @@ public class AdminController {
         model.addAttribute("person", new User());
         return "new";
     }
-    @PostMapping()
+    @PostMapping("/admin")
     public String addUser(@ModelAttribute("user") User user) {
         userService.saveUser(user);
-        return "redirect:/";
+        return "redirect:/admin";
     }
     @GetMapping("/{id}/edit")
     public String editUser(Model model, @PathVariable("id") long id) {
