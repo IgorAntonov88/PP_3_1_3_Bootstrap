@@ -16,7 +16,6 @@ import java.security.Principal;
 @RequestMapping("/user")
 public class UserController {
     private final UserService userService;
-
     @GetMapping()
     public String userPage(Principal principal, Model model) {
         User user = userService.findByUsername(principal.getName());

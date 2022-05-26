@@ -1,14 +1,12 @@
 package ru.kata.spring.boot_security.demo.service;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.kata.spring.boot_security.demo.model.Role;
@@ -20,37 +18,24 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
 public class UserService implements UserDetailsService{
-
-    @Autowired
-    final UserRepository userRepository;
-
-    public UserService(UserRepository userRepository) {
-        this.userRepository = userRepository;
-
-    }
-
+    private final UserRepository userRepository;
     public User findById(Long id) {
         return userRepository.findById(id).orElse(null);
     }
-
     public List<User> findAll() {
         return userRepository.findAll();
     }
-
     public User saveUser (User user) {
         return userRepository.save(user);
     }
-
     public void deleteById (Long id) {
         userRepository.deleteById(id);
     }
-
-
     public User findByUsername(String username) {
         return userRepository.findByUsername(username);
     }
-
     @Override
     @Transactional
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -61,10 +46,7 @@ public class UserService implements UserDetailsService{
         return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(),
                 mapRolesToAuthorities(user.getRoles()));
     }
-
     private Collection<? extends GrantedAuthority> mapRolesToAuthorities(Collection<Role> roles) {
         return roles.stream().map(r -> new SimpleGrantedAuthority(r.getName())).collect(Collectors.toList());
     }
-
-
 }

@@ -10,9 +10,9 @@
 
 </head>
 <body>
-<h2>Форма для заполнения</h2>
+<h2>Внести следующие изменения</h2>
 <p></p>
-<form th:method="post" th:action="@{/admin}" th:object="${person}">
+<form th:method="post" th:action="@{/{id}/update (id=${user.getId()})}" th:object="${user}">
     <table class="table table-striped">
         <tbody>
         <tr>
@@ -42,7 +42,7 @@
         </tbody>
     </table>
     <p></p>
-    <input type="submit" value="Добавить нового пользователя"/>
+    <input type="submit" value="Применить изменения"/>
 </form>
 <p></p>
 <form th:action="@{/logout}" method="post">
