@@ -14,18 +14,18 @@ import java.util.Set;
 public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String username;
-    private String password;
-    private String lastname;
-    private String age;
-    private String email;
+    Long id;
+    String username;
+    String password;
+    String lastname;
+    String age;
+    String email;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "users_roles",
             joinColumns = {@JoinColumn(name = "user_id")},
             inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private Set<Role> roles;
+    Set<Role> roles;
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return getRoles();
