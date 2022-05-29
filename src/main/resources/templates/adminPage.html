@@ -20,6 +20,7 @@
     <th>Фамилия</th>
     <th>Возраст</th>
     <th>E-mail</th>
+    <th>Пароль</th>
     <th>Роль</th>
     <th>Действие</th>
   </tr>
@@ -30,6 +31,7 @@
     <td th:text="${user.lastname}"></td>
     <td th:text="${user.age}"></td>
     <td th:text="${user.email}"></td>
+    <td th:text="${user.password}"></td>
     <td th:each="role : ${user.roles}" th:text="${role.name}"></td>
     <td>
       <a th:href="@{/{id}/edit (id=${user.getId()})}">Edit</a>
