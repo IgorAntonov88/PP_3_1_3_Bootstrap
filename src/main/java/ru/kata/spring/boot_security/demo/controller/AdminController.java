@@ -10,7 +10,7 @@ import ru.kata.spring.boot_security.demo.service.UserService;
 @Controller
 @RequiredArgsConstructor
 public class AdminController {
-    private final UserService userService;
+    UserService userService;
 
     @GetMapping("/admin")
     public String findAll(Model model) {

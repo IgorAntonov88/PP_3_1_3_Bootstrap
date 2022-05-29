@@ -7,6 +7,8 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.kata.spring.boot_security.demo.model.Role;
@@ -15,23 +17,34 @@ import ru.kata.spring.boot_security.demo.repository.UserRepository;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class UserService implements UserDetailsService{
-    private final UserRepository userRepository;
-    public User findById(Long id) {
-        return userRepository.findById(id).orElse(null);
+    UserRepository userRepository;
+    PasswordEncoder passwordEncoder;
+    BCryptPasswordEncoder bCryptPasswordEncoder= new BCryptPasswordEncoder(12);
+    public Optional<User> findById(long id) {
+
+        return userRepository.findById(id);
     }
     public List<User> findAll() {
         return userRepository.findAll();
     }
-    public User saveUser (User user) {
-        return userRepository.save(user);
-    }
-    public void deleteById (Long id) {
+    public void deleteById(long id) {
         userRepository.deleteById(id);
+    }
+
+    public void saveUser(User user) {
+        User extracted = userRepository.findByUsername(user.getUsername());
+        if (extracted != null) {
+            throw new IllegalArgumentException("User already exists!");
+        } else {
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+            userRepository.save(user);
+        }
     }
     public User findByUsername(String username) {
         return userRepository.findByUsername(username);
