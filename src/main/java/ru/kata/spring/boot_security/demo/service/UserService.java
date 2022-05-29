@@ -16,6 +16,7 @@ import ru.kata.spring.boot_security.demo.model.User;
 import ru.kata.spring.boot_security.demo.repository.UserRepository;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -35,11 +36,23 @@ public class UserService implements UserDetailsService{
         userRepository.deleteById(id);
     }
 
-    public void saveUser(User user) {
+//    public void saveUser(User user) {
+//        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(12);
+//        user.setPassword(passwordEncoder.encode(user.getPassword()));
+//        userRepository.save(user);
+//    }
+    public boolean saveUser(User user) {
         PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(12);
+        User userFromDB = userRepository.findByUsername(user.getUsername());
+        if (userFromDB != null) {
+            return false;
+        }
+        user.setRoles(Collections.singleton(new Role(1L, "ROLE_USER")));
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
+        return true;
     }
+
     public User findByUsername(String username) {
         return userRepository.findByUsername(username);
     }

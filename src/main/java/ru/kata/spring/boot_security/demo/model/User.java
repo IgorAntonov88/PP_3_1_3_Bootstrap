@@ -13,7 +13,7 @@ import java.util.Set;
 @Table(name = "users")
 public class User implements UserDetails {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     Long id;
     String username;
     String password;
@@ -26,6 +26,9 @@ public class User implements UserDetails {
             joinColumns = {@JoinColumn(name = "user_id")},
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     Set<Role> roles;
+
+    public User() {
+    }
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return getRoles();
