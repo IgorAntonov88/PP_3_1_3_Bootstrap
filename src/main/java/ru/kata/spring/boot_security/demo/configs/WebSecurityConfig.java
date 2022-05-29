@@ -18,8 +18,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-    SuccessUserHandler successUserHandler;
-    UserDetailsService userDetailsService;
+    private final SuccessUserHandler successUserHandler;
+    private final UserDetailsService userDetailsService;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {

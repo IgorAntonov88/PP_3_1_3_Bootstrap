@@ -23,12 +23,10 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 public class UserService implements UserDetailsService{
-    UserRepository userRepository;
-    PasswordEncoder passwordEncoder;
-    BCryptPasswordEncoder bCryptPasswordEncoder= new BCryptPasswordEncoder(12);
-    public Optional<User> findById(long id) {
+    private final UserRepository userRepository;
 
-        return userRepository.findById(id);
+    public User findById(Long id) {
+        return userRepository.findById(id).orElse(null);
     }
     public List<User> findAll() {
         return userRepository.findAll();
@@ -38,13 +36,9 @@ public class UserService implements UserDetailsService{
     }
 
     public void saveUser(User user) {
-        User extracted = userRepository.findByUsername(user.getUsername());
-        if (extracted != null) {
-            throw new IllegalArgumentException("User already exists!");
-        } else {
-            user.setPassword(passwordEncoder.encode(user.getPassword()));
-            userRepository.save(user);
-        }
+        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(12);
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        userRepository.save(user);
     }
     public User findByUsername(String username) {
         return userRepository.findByUsername(username);
