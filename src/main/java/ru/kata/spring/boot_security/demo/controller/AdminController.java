@@ -5,12 +5,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.kata.spring.boot_security.demo.model.User;
+import ru.kata.spring.boot_security.demo.repository.RoleRepository;
 import ru.kata.spring.boot_security.demo.service.UserService;
 
 @Controller
 @RequiredArgsConstructor
 public class AdminController {
     private final UserService userService;
+    private final RoleRepository roleRepository;
 
     @GetMapping("/admin")
     public String findAll(Model model) {
@@ -20,6 +22,7 @@ public class AdminController {
     @GetMapping( "/admin/new")
     public String newUser(Model model) {
         model.addAttribute("person", new User());
+        model.addAttribute("roles", roleRepository.findAll());
         return "new";
     }
     @PostMapping("/admin")

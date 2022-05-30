@@ -48,9 +48,14 @@
         </tr>
 
         <tr>
-            <td>Роль</td>
+            <td>Роль:</td>
             <td>
-                <input type="roles" th:field="*{roles}">
+                <th:block th:each="role: ${roles}">
+                    <input type="checkbox" th:field="*{roles}"
+                           th:text="${role.name}" th:value="${role.id}" class="m-2" />
+                </th:block>
+
+
             </td>
         </tr>
 
