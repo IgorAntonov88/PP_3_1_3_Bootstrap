@@ -33,6 +33,7 @@ public class AdminController {
     @GetMapping("/{id}/edit")
     public String editUser(Model model, @PathVariable("id") long id) {
         model.addAttribute("user", userService.findById(id));
+        model.addAttribute("roles", roleRepository.findAll());
         return "edit";
     }
     @PostMapping("/{id}/update")
