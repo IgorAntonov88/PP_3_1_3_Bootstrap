@@ -1,7 +1,6 @@
 package ru.kata.spring.boot_security.demo.service;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -16,16 +15,13 @@ import ru.kata.spring.boot_security.demo.model.User;
 import ru.kata.spring.boot_security.demo.repository.UserRepository;
 
 import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class UserService implements UserDetailsService{
     private final UserRepository userRepository;
-
     public User findById(Long id) {
         return userRepository.findById(id).orElse(null);
     }
@@ -35,14 +31,12 @@ public class UserService implements UserDetailsService{
     public void deleteById(long id) {
         userRepository.deleteById(id);
     }
-
     public void saveUser(User user) {
         PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(12);
 //        user.setRoles(Collections.singleton(new Role(1L, "ROLE_USER")));
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
     }
-
     public User findByUsername(String username) {
         return userRepository.findByUsername(username);
     }

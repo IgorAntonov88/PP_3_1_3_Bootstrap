@@ -3,7 +3,6 @@ package ru.kata.spring.boot_security.demo.model;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.Set;
@@ -20,7 +19,6 @@ public class User implements UserDetails {
     String lastname;
     String age;
     String email;
-
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "users_roles",
             joinColumns = {@JoinColumn(name = "user_id")},
