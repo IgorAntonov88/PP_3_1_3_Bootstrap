@@ -22,6 +22,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class UserService implements UserDetailsService{
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
     public User findById(Long id) {
         return userRepository.findById(id).orElse(null);
     }
@@ -32,7 +33,7 @@ public class UserService implements UserDetailsService{
         userRepository.deleteById(id);
     }
     public void saveUser(User user) {
-        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(12);
+//        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(12);
 //        user.setRoles(Collections.singleton(new Role(1L, "ROLE_USER")));
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
