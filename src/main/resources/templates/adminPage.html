@@ -61,76 +61,77 @@
             </div>
             <div class="w-100"></div>
             <div class="col border bg-white">
-              <br />
+              <br>
               <table class="table table-hover">
                 <thead>
                 <tr>
                   <th>ID</th>
-                  <th>Name</th>
+                  <th>First Name</th>
+                  <th>Last Name</th>
                   <th>Age</th>
                   <th>Email</th>
-                  <th>Roles</th>
+                  <th>Role</th>
                   <th>Edit</th>
                   <th>Delete</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr th:each="user : ${users}">
-                  <td th:text="${user.getId()}"></td>
+                  <td th:text="${user.id}"></td>
                   <td th:text="${user.username}"></td>
-                  <td th:text="${user.getAge()}"></td>
-                  <td th:text="${user.getEmail()}"></td>
+                  <td th:text="${user.lastname}"></td>
+                  <td th:text="${user.age}"></td>
+                  <td th:text="${user.email}"></td>
                   <td><a th:each="role:*{user.roles}" th:text="${role.name.substring(5).concat(' ')}"></a></td>
 
                   <td>
                     <!-- Кнопка редактирования -->
                     <button type="button" class="btn btn-info" data-toggle="modal"
-                            th:data-target="${'#edit' + user.getId()}">Edit
+                            th:data-target="${'#edit' + user.id}">Edit
                     </button>
 
                     <!-- Модальное окно редактирования юзера -->
-                    <div class="modal" th:id="${'edit' + user.getId()}">
+                    <div class="modal" th:id="${'edit' + user.id}">
                       <div class="modal-dialog">
                         <div class="modal-content">
 
                           <!-- Заголовок модального окна -->
                           <div class="modal-header">
                             <h6 class="modal-title">Edit user</h6>
-                            <button type="button" class="close" data-dismiss="modal">×
-                            </button>
+                            <button type="button" class="close" data-dismiss="modal">×</button>
                           </div>
 
                           <!-- Тело модального окна -->
                           <div class="modal-body">
                             <div class="form-group row justify-content-center align-items-center">
-                              <form th:action="@{/admin/update/{id}(id=${user.getId()})}"
+                              <form th:action="@{/admin/update/{id}(id=${user.id})}"
                                     th:object="${user}" th:method="patch">
 
                                 <strong><label for="eId">ID: </label></strong>
                                 <br>
                                 <input type="number" class="form-control"
-                                       th:value="${user.getId()}" id="eId" name="id" readonly>
+                                       th:value="${user.id}" id="eId" name="id" readonly>
                                 <br>
 
 
                                 <strong><label for="eName">Name: </label></strong>
                                 <br>
                                 <input type="text" class="form-control"
-                                       th:value="${user.getUsername()}" id="eName" name="name"
+                                       th:value="${user.username}" id="eName" name="name"
                                        required minlength="3" maxlength="50">
                                 <br>
 
                                 <strong><label for="eAge">Age: </label></strong>
                                 <br>
                                 <input type="number" class="form-control"
-                                       th:value="${user.getAge()}" id="eAge" name="age"
+                                       th:value="${user.age}" id="eAge" name="age"
                                        required minlength="1" maxlength="2">
                                 <br>
 
                                 <strong><label for="eEmail">Email: </label></strong>
                                 <br>
                                 <input type="text" class="form-control"
-                                       th:value="${user.getEmail()}" id="eEmail" name="email"
+                                       th:value="${user.email}" id="eEmail" name="email"
                                        required minlength="3" maxlength="50">
                                 <br>
 
@@ -141,14 +142,14 @@
                                 <br>
 
 
-                                <label th:for="${'roles' + user.getId()}"
+                                <label th:for="${'roles' + user.id}"
                                        class="form-label fw-bold">Roles</label>
                                 <div>
                                   <select class="form-control" name="roles" multiple size="2"
                                           th:value="*{roles}">
-                                    <div th:each="role : ${roles}">
+                                    <div th:each="role : ${user.roles}">
                                       <option th:text="${role.name}" th:value="${role.name}"
-                                              th:id="${'roles' + user.getId()}"/>
+                                              th:id="${'roles' + user.id}"/>
                                     </div>
                                   </select>
                                 </div>
@@ -172,11 +173,11 @@
                   <td>
                     <!-- Кнопка удаления -->
                     <button type="button" class="btn btn-danger" data-toggle="modal"
-                            th:data-target="${'#delete' + user.getId()}">Delete
+                            th:data-target="${'#delete' + user.id}">Delete
                     </button>
 
                     <!-- Модальное окно удаления юзера -->
-                    <div class="modal" th:id="${'delete' + user.getId()}">
+                    <div class="modal" th:id="${'delete' + user.id}">
                       <div class="modal-dialog">
                         <div class="modal-content">
 
@@ -190,13 +191,13 @@
                           <!-- Тело модального окна -->
                           <div class="modal-body">
                             <div class="form-group row justify-content-center align-items-center">
-                              <form th:action="@{/admin/delete/{id}(id=${user.getId()})}"
+                              <form th:action="@{/admin/delete/{id}(id=${user.id})}"
                                     th:object="${user}" th:method="delete">
 
                                 <strong><label for="dId">ID: </label></strong>
                                 <br />
                                 <input type="number" class="form-control"
-                                       th:value="${user.getId()}" id="dId" name="id" readonly>
+                                       th:value="${user.id}" id="dId" name="id" readonly>
                                 <br />
 
                                 <strong><label for="dName">Name: </label></strong>
@@ -207,13 +208,13 @@
                                 <strong><label for="dAge">Age: </label></strong>
                                 <br />
                                 <input type="number" class="form-control"
-                                       th:value="${user.getAge()}" id="dAge" name="age" readonly>
+                                       th:value="${user.age}" id="dAge" name="age" readonly>
                                 <br />
 
                                 <strong><label for="dEmail">Email: </label></strong>
                                 <br />
                                 <input type="text" class="form-control"
-                                       th:value="${user.getEmail()}" id="dEmail" name="email" readonly>
+                                       th:value="${user.email}" id="dEmail" name="email" readonly>
                                 <br />
 
                                 <strong><label for="dRoles">Role: </label></strong>
@@ -227,8 +228,7 @@
                                 <!-- Подвал модального окна -->
                                 <div class="modal-footer">
                                   <button type="button" class="btn btn-secondary"
-                                          data-dismiss="modal">Close
-                                  </button>
+                                          data-dismiss="modal">Close</button>
                                   <input type="submit" class="btn btn-danger"
                                          value="delete"/>
                                 </div>
