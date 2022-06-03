@@ -255,7 +255,7 @@
             <div class="w-100"></div>
             <div class="col border bg-white text-center">
               <br>
-              <form th:action="@{/admin/new}" th:object="${newUser}" method="post">
+              <form th:method="post" th:action="@{/admin/new}" th:object="${newUser}">
 
                 <div class="form-group row justify-content-center align-items-center">
                   <div class="col-sm-3">
@@ -295,7 +295,7 @@
                 <div class="form-group row justify-content-center align-items-center">
                   <div class="col-sm-3">
                     <strong><label for="nPassword">Password</label></strong>
-                    <br />
+                    <br>
                     <input type="password" class="form-control" th:field="*{password}" id="nPassword"
                            placeholder="Password" required>
                   </div>
@@ -320,8 +320,8 @@
                 <button type="submit" class="btn btn-success">
                   Add new user
                 </button>
-                <br />
-                <br />
+                <br>
+                <br>
               </form>
             </div>
           </div>

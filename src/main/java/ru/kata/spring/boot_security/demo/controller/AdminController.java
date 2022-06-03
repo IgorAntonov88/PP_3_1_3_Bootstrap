@@ -4,11 +4,13 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ru.kata.spring.boot_security.demo.model.User;
 import ru.kata.spring.boot_security.demo.repository.RoleRepository;
 import ru.kata.spring.boot_security.demo.service.UserService;
 
+import javax.validation.Valid;
 import java.security.Principal;
 
 @Controller
@@ -25,28 +27,28 @@ public class AdminController {
         model.addAttribute("newUser", new User());
         return "adminPage";
     }
-    @GetMapping( "/admin/new")
-    public String newUser(Model model) {
-        model.addAttribute("person", new User());
-        model.addAttribute("roles", roleRepository.findAll());
-        return "new";
+//    @GetMapping( "/admin/new")
+//    public String newUser(Model model) {
+//        model.addAttribute("person", new User());
+//        model.addAttribute("roles", roleRepository.findAll());
+//        return "new";
+//    }
+    @PostMapping("/admin/new")
+    public String addUser(@ModelAttribute("user") User user, BindingResult bindingResult) {
+            userService.saveUser(user);
+            return "redirect:/admin";
     }
-    @PostMapping("/admin")
-    public String addUser(@ModelAttribute("user") User user) {
-        userService.saveUser(user);
-        return "redirect:/admin";
-    }
-    @GetMapping("/{id}/edit")
-    public String editUser(Model model, @PathVariable("id") long id) {
-        model.addAttribute("user", userService.findById(id));
-        model.addAttribute("roles", roleRepository.findAll());
-        return "edit";
-    }
-    @PostMapping("/{id}/update")
-    public String editUser(@PathVariable("id") int id, @ModelAttribute User user) {
-        userService.saveUser(user);
-        return "redirect:/admin";
-    }
+//    @GetMapping("/{id}/edit")
+//    public String editUser(Model model, @PathVariable("id") long id) {
+//        model.addAttribute("user", userService.findById(id));
+//        model.addAttribute("roles", roleRepository.findAll());
+//        return "edit";
+//    }
+//    @PostMapping("/{id}/update")
+//    public String editUser(@PathVariable("id") int id, @ModelAttribute User user) {
+//        userService.saveUser(user);
+//        return "redirect:/admin";
+//    }
     @DeleteMapping("/admin/delete/{id}")
     public String deleteUserById(@PathVariable("id") long id) {
         userService.deleteById(id);
