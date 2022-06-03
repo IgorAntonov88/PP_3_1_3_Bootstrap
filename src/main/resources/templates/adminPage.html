@@ -145,8 +145,8 @@
                                 <div>
                                   <select class="form-control" name="roles" multiple size="2"
                                           th:value="*{roles}">
-                                    <div th:each="role : ${user.roles}">
-                                      <option th:text="${role.name}" th:value="${role.name}"
+                                    <div th:each="role : ${roles}">
+                                      <option th:text="${role.name.substring(5).concat(' ')}" th:value="${role.name}"
                                               th:id="${'roles' + user.id}"/>
                                     </div>
                                   </select>
@@ -220,7 +220,7 @@
                                 <strong><label for="dRoles">Role</label></strong>
                                 <select multiple class="form-control" id="dRoles" name="roles" readonly size="2">
                                   <option
-                                          th:each="role : ${user.roles}"
+                                          th:each="role : ${roles}"
                                           th:text="${role.name.substring(5).concat(' ')}">
                                   </option>
                                 </select>
@@ -259,16 +259,24 @@
 
                 <div class="form-group row justify-content-center align-items-center">
                   <div class="col-sm-3">
-                    <strong><label for="nName">Name: </label></strong>
+                    <strong><label for="nName">First name</label></strong>
                     <br>
                     <input type="text" class="form-control" th:field="*{username}" id="nName"
+                           placeholder="Name" required minlength="3" maxlength="50">
+                  </div>
+                </div>
+                <div class="form-group row justify-content-center align-items-center">
+                  <div class="col-sm-3">
+                    <strong><label for="nLastName">Last name</label></strong>
+                    <br>
+                    <input type="text" class="form-control" th:field="*{lastname}" id="nLastName"
                            placeholder="Name" required minlength="3" maxlength="50">
                   </div>
                 </div>
 
                 <div class="form-group row justify-content-center align-items-center">
                   <div class="col-sm-3">
-                    <strong><label for="nAge">Age: </label></strong>
+                    <strong><label for="nAge">Age</label></strong>
                     <br />
                     <input type="number" class="form-control" th:field="*{age}" id="nAge"
                            placeholder="Age" required minlength="1" maxlength="2">
@@ -277,7 +285,7 @@
 
                 <div class="form-group row justify-content-center align-items-center">
                   <div class="col-sm-3">
-                    <strong><label for="nEmail">Email: </label></strong>
+                    <strong><label for="nEmail">Email</label></strong>
                     <br />
                     <input type="text" class="form-control" th:field="*{email}" id="nEmail"
                            placeholder="Email" required minlength="3" maxlength="50">
@@ -286,7 +294,7 @@
 
                 <div class="form-group row justify-content-center align-items-center">
                   <div class="col-sm-3">
-                    <strong><label for="nPassword">Password: </label></strong>
+                    <strong><label for="nPassword">Password</label></strong>
                     <br />
                     <input type="password" class="form-control" th:field="*{password}" id="nPassword"
                            placeholder="Password" required>
@@ -295,12 +303,12 @@
 
                 <div class="form-group row justify-content-center align-items-center">
                   <div class="col-sm-3">
-                    <label for="inputRole" class="form-label fw-bold">Roles</label>
+                    <strong><label for="inputRole" class="form-label fw-bold">Role</label></strong>
                     <div>
                       <select class="form-control" name="roles" multiple size="2"
                               th:field="*{roles}">
                         <div th:each="role : ${roles}">
-                          <option th:text="${role.name}"
+                          <option th:text="${role.name.substring(5).concat(' ')}"
                                   th:value="${role.name}"
                                   name="roles" id="inputRole"/>
                         </div>
