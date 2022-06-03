@@ -62,7 +62,7 @@
             <div class="w-100"></div>
             <div class="col border bg-white">
               <br>
-              <table class="table table-hover">
+              <table class="table table-striped">
                 <thead>
                 <tr>
                   <th>ID</th>
@@ -102,48 +102,46 @@
                           </div>
 
                           <!-- Тело модального окна -->
-                          <div class="modal-body">
+                          <div class="modal-body text-center">
                             <div class="form-group row justify-content-center align-items-center">
                               <form th:action="@{/admin/update/{id}(id=${user.id})}"
                                     th:object="${user}" th:method="patch">
-
-                                <strong><label for="eId">ID: </label></strong>
+                                <strong><label for="eId">ID</label></strong>
                                 <br>
                                 <input type="number" class="form-control"
                                        th:value="${user.id}" id="eId" name="id" readonly>
                                 <br>
-
-
-                                <strong><label for="eName">Name: </label></strong>
+                                <strong><label for="eName">First name</label></strong>
                                 <br>
                                 <input type="text" class="form-control"
                                        th:value="${user.username}" id="eName" name="name"
                                        required minlength="3" maxlength="50">
                                 <br>
-
-                                <strong><label for="eAge">Age: </label></strong>
+                                <strong><label for="eName">Last name</label></strong>
+                                <br>
+                                <input type="text" class="form-control"
+                                       th:value="${user.lastname}" id="eLastName" name="name"
+                                       required minlength="3" maxlength="50">
+                                <br>
+                                <strong><label for="eAge">Age</label></strong>
                                 <br>
                                 <input type="number" class="form-control"
                                        th:value="${user.age}" id="eAge" name="age"
                                        required minlength="1" maxlength="2">
                                 <br>
-
-                                <strong><label for="eEmail">Email: </label></strong>
+                                <strong><label for="eEmail">Email</label></strong>
                                 <br>
                                 <input type="text" class="form-control"
                                        th:value="${user.email}" id="eEmail" name="email"
                                        required minlength="3" maxlength="50">
                                 <br>
-
-                                <strong><label for="ePassword">Password: </label></strong>
+                                <strong><label for="ePassword">Password</label></strong>
                                 <br>
                                 <input type="password" class="form-control"
                                        th:value="null" id="ePassword" name="password">
                                 <br>
-
-
-                                <label th:for="${'roles' + user.id}"
-                                       class="form-label fw-bold">Roles</label>
+                                <strong><label th:for="${'roles' + user.id}"
+                                       class="form-label fw-bold">Role</label></strong>
                                 <div>
                                   <select class="form-control" name="roles" multiple size="2"
                                           th:value="*{roles}">
@@ -153,7 +151,6 @@
                                     </div>
                                   </select>
                                 </div>
-
                                 <!-- Подвал модального окна -->
                                 <div class="modal-footer">
                                   <button type="button" class="btn btn-secondary"
@@ -190,35 +187,38 @@
 
                           <!-- Тело модального окна -->
                           <div class="modal-body">
-                            <div class="form-group row justify-content-center align-items-center">
+                            <div class="form-group row justify-content-center align-items-center text-center">
                               <form th:action="@{/admin/delete/{id}(id=${user.id})}"
                                     th:object="${user}" th:method="delete">
 
-                                <strong><label for="dId">ID: </label></strong>
-                                <br />
+                                <strong><label for="dId">ID</label></strong>
+                                <br>
                                 <input type="number" class="form-control"
                                        th:value="${user.id}" id="dId" name="id" readonly>
-                                <br />
-
-                                <strong><label for="dName">Name: </label></strong>
-                                <br />
+                                <br>
+                                <strong><label for="dName">First name</label></strong>
+                                <br>
                                 <input type="text" class="form-control"
                                        th:value="${user.username}" id="dName" name="name" readonly>
+                                <br>
+                                <strong><label for="dName">Last name</label></strong>
+                                <br>
+                                <input type="text" class="form-control"
+                                       th:value="${user.lastname}" id="dLastName" name="name" readonly>
 
-                                <strong><label for="dAge">Age: </label></strong>
-                                <br />
+                                <strong><label for="dAge">Age</label></strong>
+                                <br>
                                 <input type="number" class="form-control"
                                        th:value="${user.age}" id="dAge" name="age" readonly>
-                                <br />
+                                <br>
 
-                                <strong><label for="dEmail">Email: </label></strong>
-                                <br />
+                                <strong><label for="dEmail">Email</label></strong>
+                                <br>
                                 <input type="text" class="form-control"
                                        th:value="${user.email}" id="dEmail" name="email" readonly>
-                                <br />
-
-                                <strong><label for="dRoles">Role: </label></strong>
-                                <select multiple class="form-control w-100" id="dRoles" name="roles" readonly>
+                                <br>
+                                <strong><label for="dRoles">Role</label></strong>
+                                <select multiple class="form-control" id="dRoles" name="roles" readonly size="2">
                                   <option
                                           th:each="role : ${user.roles}"
                                           th:text="${role.name.substring(5).concat(' ')}">
@@ -230,7 +230,7 @@
                                   <button type="button" class="btn btn-secondary"
                                           data-dismiss="modal">Close</button>
                                   <input type="submit" class="btn btn-danger"
-                                         value="delete"/>
+                                         value="Delete"/>
                                 </div>
                               </form>
                             </div>
