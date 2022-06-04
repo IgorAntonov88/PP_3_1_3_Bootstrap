@@ -146,7 +146,7 @@
                                   <select class="form-control" name="roles" multiple size="2"
                                           th:value="*{roles}">
                                     <div th:each="role : ${roles}">
-                                      <option th:text="${role.name.substring(5).concat(' ')}" th:value="${role.name}"
+                                      <option th:text="${role.name.substring(5).concat(' ')}" th:value="${role.id}"
                                               th:id="${'roles' + user.id}"/>
                                     </div>
                                   </select>

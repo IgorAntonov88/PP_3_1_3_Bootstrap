@@ -12,7 +12,7 @@ import java.util.Set;
 @Table(name = "users")
 public class User implements UserDetails {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
     String username;
     String password;

@@ -6,12 +6,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import ru.kata.spring.boot_security.demo.model.Role;
 import ru.kata.spring.boot_security.demo.model.User;
 import ru.kata.spring.boot_security.demo.repository.RoleRepository;
 import ru.kata.spring.boot_security.demo.service.UserService;
 
 import javax.validation.Valid;
 import java.security.Principal;
+import java.util.Set;
 
 @Controller
 @RequiredArgsConstructor
@@ -38,17 +40,17 @@ public class AdminController {
             userService.saveUser(user);
             return "redirect:/admin";
     }
-//    @GetMapping("/{id}/edit")
-//    public String editUser(Model model, @PathVariable("id") long id) {
-//        model.addAttribute("user", userService.findById(id));
-//        model.addAttribute("roles", roleRepository.findAll());
-//        return "edit";
-//    }
-//    @PostMapping("/{id}/update")
-//    public String editUser(@PathVariable("id") int id, @ModelAttribute User user) {
-//        userService.saveUser(user);
-//        return "redirect:/admin";
-//    }
+    @GetMapping("/{id}/edit")
+    public String editUser(Model model, @PathVariable("id") long id) {
+        model.addAttribute("user", userService.findById(id));
+        model.addAttribute("roles", roleRepository.findAll());
+        return "edit";
+    }
+    @PatchMapping("/admin/update/{id}")
+    public String editUser(@ModelAttribute("user") User user) {
+        userService.saveUser(user);
+        return "redirect:/admin";
+    }
     @DeleteMapping("/admin/delete/{id}")
     public String deleteUserById(@PathVariable("id") long id) {
         userService.deleteById(id);
