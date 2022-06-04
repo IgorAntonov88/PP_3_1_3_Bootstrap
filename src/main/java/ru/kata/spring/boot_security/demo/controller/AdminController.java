@@ -29,22 +29,10 @@ public class AdminController {
         model.addAttribute("person", new User());
         return "adminPage";
     }
-//    @GetMapping( "/admin/new")
-//    public String newUser(Model model) {
-//        model.addAttribute("person", new User());
-//        model.addAttribute("roles", roleRepository.findAll());
-//        return "new";
-//    }
     @PostMapping("/admin/new")
     public String addUser(@ModelAttribute("person") User user) {
             userService.saveUser(user);
             return "redirect:/admin";
-    }
-    @GetMapping("/{id}/edit")
-    public String editUser(Model model, @PathVariable("id") long id) {
-        model.addAttribute("user", userService.findById(id));
-        model.addAttribute("roles", roleRepository.findAll());
-        return "edit";
     }
     @PatchMapping("/admin/update/{id}")
     public String editUser(@ModelAttribute("user") User user) {

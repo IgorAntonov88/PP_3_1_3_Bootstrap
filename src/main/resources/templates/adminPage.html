@@ -105,7 +105,7 @@
                           <div class="modal-body text-center">
                             <div class="form-group row justify-content-center align-items-center">
                               <form th:action="@{/admin/update/{id}(id=${user.id})}"
-                                    th:object="${user}" th:method="patch">
+                                    th:object="${user}" th:method="PATCH">
                                 <strong><label for="eId">ID</label></strong>
                                 <br>
                                 <input type="number" class="form-control"
