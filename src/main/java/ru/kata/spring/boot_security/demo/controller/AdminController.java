@@ -24,7 +24,7 @@ public class AdminController {
         model.addAttribute("users", userService.findAll());
         model.addAttribute("roles", roleRepository.findAll());
         model.addAttribute("user", userService.findByUsername(principal.getName()));
-        model.addAttribute("newUser", new User());
+        model.addAttribute("person", new User());
         return "adminPage";
     }
 //    @GetMapping( "/admin/new")
@@ -34,7 +34,7 @@ public class AdminController {
 //        return "new";
 //    }
     @PostMapping("/admin/new")
-    public String addUser(@ModelAttribute("user") User user, BindingResult bindingResult) {
+    public String addUser(@ModelAttribute("person") User user) {
             userService.saveUser(user);
             return "redirect:/admin";
     }
