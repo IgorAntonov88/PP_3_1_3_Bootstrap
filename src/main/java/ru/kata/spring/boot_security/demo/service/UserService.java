@@ -33,8 +33,6 @@ public class UserService implements UserDetailsService{
         userRepository.deleteById(id);
     }
     public void saveUser(User user) {
-//        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(12);
-//        user.setRoles(Collections.singleton(new Role(1L, "ROLE_USER")));
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
     }
